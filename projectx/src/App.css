@@ -1,0 +1,171 @@
+body{
+  margin:0;
+}
+
+.LogIn-Modal{
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  max-width:400px;
+  max-height:400px;
+}
+
+.Hidden{
+  display:none;
+}
+
+
+.ShowModal{
+  display: flex;
+  min-height:25vh;
+  min-width:25vh;
+  position: relative;
+  z-index: 1;
+  background-color: white;
+  margin-left: 5%;
+  margin-top:5%;
+  border-radius: 25px;
+  box-shadow: 12px 12px 20px 1px black;
+  transition: all 0.5 ease-in-out;
+  overflow-y:auto
+}
+
+
+.button-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url('https://images.unsplash.com/photo-1538970272646-f61fabb3a8a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG5ldyUyMHlvcmslMjBjaXR5fGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60');
+  text-align: center;
+  margin-top: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 4px;
+  width: 300px;
+  height: 400px; /* Increase the height as needed */
+}
+
+
+
+.login-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: silver; /* Background color for the button */
+  color: #fff; /* Text color for the button */
+  border: none;
+  border-radius: 8px; 
+  padding: 15px 30px; 
+  font-size: 16px;
+  cursor: pointer;
+
+  background-size: cover; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+/* Style for the container */
+.container {
+  position: relative;
+  text-align: center;
+}
+
+.gm-style{
+  height:55vh;
+}
+/* Style for the hamburger button */
+.hamburger-button {
+  position: fixed;
+  top: 5vh;
+  left: 5vh;
+  z-index:3;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background-color: transparent;
+}
+
+/* Style for each bar in the hamburger button */
+.bar {
+  width: 100%;
+  border:1px white solid;
+  height: 3px;
+  background-color: rgba(5, 5, 248, 0.95);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Style for the active state of the hamburger button */
+/* .hamburger-button.active .bar:first-child {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.hamburger-button.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-button.active .bar:last-child {
+  transform: translateY(-5px) rotate(-45deg);
+} */
+
+/* Style for the profile section */
+.profile-section {
+  display: none;
+  position: fixed;
+  top:5vh;
+  left: 15vh;
+  color:white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 2; /* Ensure it's above other content */
+  text-align: left;
+  background-color: rgb(97, 96, 96);
+  border:1px solid white;
+}
+
+/* Show the profile section when the hamburger button is active */
+.hamburger-button.active + .profile-section {
+  display: block;
+}
+
+/* Style for the profile section title */
+.profile-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: white;
+}
+
+/* Style for the user information */
+.profile-section p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: white;
+}
+
+/* Style for the log out button */
+.profile-section button {
+  background-color: #0800ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Style for the log out button on hover */
+.profile-section button:hover {
+  background-color: #ff331a;
+}
