@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import EventFormModal from './eventFormModal';
@@ -7,40 +6,31 @@ import { getAllEvents } from '../api/event';
 
 const MapContainer = ({ user, profile }) => {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
-  const map_id = import.meta.env.MAP_ID 
+  const map_id = import.meta.env.MAP_ID;
   const defaultCenter = {
     lat: 40.783660,
     lng: -73.965019
   };
 
-  
-  const eventModalRef = useRef(null)
-  const showModalRef = useRef(null)
+  const eventModalRef = useRef(null);
+  const showModalRef = useRef(null);
   const [markers, setMarkers] = useState([]);
   const [center, setCenter] = useState(defaultCenter);
   const [showEventModal, setShowEventModal] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [events, setEvents] = useState([]);
   const [markerDetails, setMarkerDetails] = useState(null);
-  const [newEvent, updateNewEvents] = useState(false)
+  const [newEvent, updateNewEvents] = useState(false);
 
   useEffect(() => {
     const fetchEvents = async () => {
       const data = await getAllEvents();
-      setEvents(data);
+      if (Array.isArray(data)) {
+        setEvents(data);
+      }
     };
     fetchEvents();
-  }, []);
-
-  useEffect(() => {
- 
-    const fetchEvents = async () => {
-      const data = await getAllEvents();
-      setEvents(data);
-    };
-    fetchEvents();
-    updateNewEvents(false)
-  }, [newEvent, eventModalRef, showModalRef]);
+  }, [newEvent]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -84,7 +74,7 @@ const MapContainer = ({ user, profile }) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={API_KEY}>
+    <LoadScript googleMapsApiKey={API_KEY} language="en"> 
       <GoogleMap
         mapContainerStyle={mapContainerStyles}
         zoom={14}
@@ -95,7 +85,7 @@ const MapContainer = ({ user, profile }) => {
         {user && events.map(event => (
           <Marker
             key={event._id}
-            position={{ lat: event.coordinates.lat,  lng: event.coordinates.lng} }
+            position={{ lat: event.coordinates.lat, lng: event.coordinates.lng }}
             onClick={() => handleMarkerClick(event)}
           />
         ))}
