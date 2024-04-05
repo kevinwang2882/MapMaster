@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { GoogleAuthContext } from './component/useGoogleAuth';
-import Map from './component/map';
+import Map from './component/googleMap';
 import './App.css';
 
 function App() {

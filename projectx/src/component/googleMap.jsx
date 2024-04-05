@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript,Marker,DirectionsService, DirectionsRenderer  } from '@react-google-maps/api';
 import EventFormModal from './eventFormModal';
 import ShowModal from './modal';
 import { getAllEvents } from '../api/event';
@@ -7,11 +7,12 @@ import { getAllEvents } from '../api/event';
 const MapContainer = ({ user, profile }) => {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   const map_id = import.meta.env.MAP_ID;
-  const defaultCenter = {
-    lat: 40.783660,
-    lng: -73.965019
-  };
 
+  const defaultCenter = {
+    lat: 40.694700,
+    lng: -73.85000
+  };
+ 
   const eventModalRef = useRef(null);
   const showModalRef = useRef(null);
   const [markers, setMarkers] = useState([]);
@@ -21,7 +22,32 @@ const MapContainer = ({ user, profile }) => {
   const [events, setEvents] = useState([]);
   const [markerDetails, setMarkerDetails] = useState(null);
   const [newEvent, updateNewEvents] = useState(false);
+  const [response, setResponse] = useState(null);
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
 
+  const directionsCallback = (response) => {
+    if (response !== null) {
+      if (response.status === 'OK') {
+        setResponse(response);
+      } else {
+        console.log('Directions request failed:', response.status);
+      }
+    }
+  };
+  const handleDirections = () => {
+    if (origin !== '' && destination !== '') {
+      const directionsService = new window.google.maps.DirectionsService();
+      directionsService.route(
+        {
+          origin: origin,
+          destination: destination,
+          travelMode: window.google.maps.TravelMode.DRIVING,
+        },
+        directionsCallback
+      );
+    }
+  };
   useEffect(() => {
     const fetchEvents = async () => {
       const data = await getAllEvents();
@@ -77,7 +103,7 @@ const MapContainer = ({ user, profile }) => {
     <LoadScript googleMapsApiKey={API_KEY} language="en"> 
       <GoogleMap
         mapContainerStyle={mapContainerStyles}
-        zoom={14}
+        zoom={12}
         center={center}
         onDblClick={handleMapClick}
         options={{ mapId: map_id, disableDoubleClickZoom: true }}
@@ -88,12 +114,48 @@ const MapContainer = ({ user, profile }) => {
             position={{ lat: event.coordinates.lat, lng: event.coordinates.lng }}
             onClick={() => handleMarkerClick(event)}
           />
+        
         ))}
         {user && markers.map((marker, index) => (
-          <Marker key={index} position={marker} onClick={() => handleMarkerClick(marker)} />
+          <Marker 
+            key={index} 
+            position={marker}
+            onClick={() => handleMarkerClick(marker)} 
+            />
+          
         ))}
-        <EventFormModal ref={eventModalRef} user={profile} show={showEventModal} setShow={setShowEventModal} updateNewEvents={updateNewEvents} coordinates={center} onClose={() => setShowEventModal(false)} />
-        <ShowModal ref={showModalRef} set={setShowModal} show={showModal} user={profile} details={markerDetails} updateNewEvents={updateNewEvents} onClose={() => setShowModal(false)} />
+        <EventFormModal 
+        ref={eventModalRef} 
+        user={profile} 
+        show={showEventModal} 
+        setShow={setShowEventModal} 
+        updateNewEvents={updateNewEvents} 
+        coordinates={center} 
+        onClose={() => setShowEventModal(false)} 
+        />
+        <ShowModal 
+        ref={showModalRef} 
+        set={setShowModal} 
+        show={showModal} 
+        user={profile} 
+        details={markerDetails} 
+        updateNewEvents={updateNewEvents} 
+        onClose={() => setShowModal(false)}
+        />
+        {response && <DirectionsRenderer directions={response} />}
+        <input
+          type="text"
+          placeholder="Origin"
+          value={origin}
+          onChange={(e) => setOrigin(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Destination"
+          value={destination}
+          onChange={(e) => setDestination(e.target.value)}
+        />
+        <button onClick={handleDirections}>Get Directions</button>
       </GoogleMap>
     </LoadScript>
   );

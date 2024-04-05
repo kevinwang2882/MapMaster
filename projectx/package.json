@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-google-maps/api": "^2.19.3",
     "@react-oauth/google": "^0.12.1",
+    "@vis.gl/react-google-maps": "^0.8.2",
     "axios": "^1.6.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
