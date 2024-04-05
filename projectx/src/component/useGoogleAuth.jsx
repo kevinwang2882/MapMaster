@@ -13,7 +13,6 @@ export default function useGoogleAuth() {
   }, [profile, user]);
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => {
-      console.log('Login successful. Code response:', codeResponse);
       setUser(codeResponse);
     },
     onError: (error) => {

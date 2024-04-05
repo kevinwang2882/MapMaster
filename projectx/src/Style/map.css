@@ -1,0 +1,31 @@
+
+.places-container{
+    position:absolute;
+    top:10px;
+    left:50%;
+    transform: translateX(-50%);
+    z-index:10;
+    width:300px;
+  }
+
+.map-container {
+    width:100%;
+    height:100vh;
+}
+.combobox-input{
+    width:100%;
+    padding:0.5rem;
+    margin: 0;
+  }
+.list-box{
+  background-color: white;
+  position: absolute;
+  width:278px;
+  max-height: 200px; /* Set a maximum height for the list box */
+  overflow-y: auto; /* Allow vertical scrolling if the list box exceeds its height */
+  border: 1px solid #ccc; /* Add a border for better visibility */
+  z-index: 1; /* Ensure the list box is above other elements */
+  margin-top: -1px; /* Remove the gap between the input and the list */
+  text-align: left;
+
+  }

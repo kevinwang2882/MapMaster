@@ -1,8 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { GoogleMap, LoadScript,Marker,DirectionsService, DirectionsRenderer  } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Marker, DirectionsRenderer } from '@react-google-maps/api';
 import EventFormModal from './eventFormModal';
-import ShowModal from './modal';
+import ShowModal from './eventModal';
 import { getAllEvents } from '../api/event';
+import { FaHotel } from "react-icons/fa";
+import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+import '../Style/map.css'
+const libraries = ['places'];
 
 const MapContainer = ({ user, profile }) => {
   const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
@@ -12,7 +23,7 @@ const MapContainer = ({ user, profile }) => {
     lat: 40.694700,
     lng: -73.85000
   };
- 
+
   const eventModalRef = useRef(null);
   const showModalRef = useRef(null);
   const [markers, setMarkers] = useState([]);
@@ -35,6 +46,7 @@ const MapContainer = ({ user, profile }) => {
       }
     }
   };
+
   const handleDirections = () => {
     if (origin !== '' && destination !== '') {
       const directionsService = new window.google.maps.DirectionsService();
@@ -48,6 +60,7 @@ const MapContainer = ({ user, profile }) => {
       );
     }
   };
+
   useEffect(() => {
     const fetchEvents = async () => {
       const data = await getAllEvents();
@@ -81,11 +94,19 @@ const MapContainer = ({ user, profile }) => {
 
     const newMarker = {
       lat: event.latLng.lat(),
-      lng: event.latLng.lng()
+      lng: event.latLng.lng(),
     };
 
     setCenter(newMarker);
-    setMarkers(prev => [...prev, newMarker]);
+
+    // Remove existing marker at the same location
+    setMarkers(prevMarkers => {
+      const filteredMarkers = prevMarkers.filter(marker => (
+        marker.lat !== newMarker.lat || marker.lng !== newMarker.lng
+      ));
+      return [...filteredMarkers, newMarker];
+    });
+
     setShowEventModal(true);
   };
 
@@ -99,10 +120,101 @@ const MapContainer = ({ user, profile }) => {
     width: "100%"
   };
 
+  const getMarkerIcon = (type) => {
+    let iconUrl = "";
+    switch (type) {
+      case 'hotel':
+        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/289/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_147-512.png";
+        break;
+      case 'restaurant':
+        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/290/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_149-512.png";
+        break;
+      case 'school':
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/8/8178.png";
+        break;
+      case 'airport':
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/9/9771.png";
+        break;
+      case 'park':
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/9/9770.png";
+        break;
+      case 'home':
+        iconUrl = "https://static.thenounproject.com/png/279259-200.png";
+        break;
+      case 'bubble_tea':
+        iconUrl = "https://static.thenounproject.com/png/37156-200.png";
+        break;
+      case 'cafe':
+        iconUrl = "https://static.thenounproject.com/png/331590-200.png";
+        break;
+      case 'amusement_park':
+        iconUrl = "https://cdn-icons-png.freepik.com/512/3175/3175179.png";
+        break;
+      case 'hot_spring':
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/5508/5508087.png";
+        break;
+      case 'disney':
+        iconUrl = "https://pngimg.com/d/disneyland_PNG24.png";
+        break;
+      case 'hospital':
+        iconUrl = "https://i.imgur.com/pngr1W1.png";
+        break;
+      default:
+        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/289/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_178-512.png";
+        break;
+    }
+    return {
+      url: iconUrl,
+      scaledSize: new window.google.maps.Size(50, 50) // adjust the size as needed
+    };
+  };
+  const PlacesAutocomplete = ({ setMarkers }) => {
+    const {
+      ready,
+      value,
+      setValue,
+      suggestions: { status, data },
+      clearSuggestions,
+    } = usePlacesAutocomplete();
+
+    const handleSelect = async (address) => {
+      setValue(address, false);
+      clearSuggestions();
+
+      const results = await getGeocode({ address });
+      const { lat, lng } = await getLatLng(results[0]);
+      setMarkers([{ lat, lng }]);
+    };
+
+    return (
+    
+      <Combobox onSelect={handleSelect}>
+        <ComboboxInput
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          disabled={!ready}
+          className="combobox-input"
+          placeholder="Search an address"
+        />
+        <ComboboxPopover>
+          <ComboboxList className='list-box'>
+            {status === "OK" &&
+              data.map(({ place_id, description }) => (
+                <ComboboxOption key={place_id} value={description} />
+              ))}
+          </ComboboxList>
+        </ComboboxPopover>
+      </Combobox>
+    
+    );
+  };
   return (
-    <LoadScript googleMapsApiKey={API_KEY} language="en"> 
+    <LoadScript googleMapsApiKey={API_KEY} language="en" libraries={libraries}>
+      <div className="places-container">
+      <PlacesAutocomplete setMarkers={setMarkers} />
+      </div>
       <GoogleMap
-        mapContainerStyle={mapContainerStyles}
+        mapContainerClassName="map-container"
         zoom={12}
         center={center}
         onDblClick={handleMapClick}
@@ -112,35 +224,35 @@ const MapContainer = ({ user, profile }) => {
           <Marker
             key={event._id}
             position={{ lat: event.coordinates.lat, lng: event.coordinates.lng }}
+            icon={getMarkerIcon(event.type)} // Use the custom marker icon
             onClick={() => handleMarkerClick(event)}
           />
-        
         ))}
         {user && markers.map((marker, index) => (
-          <Marker 
-            key={index} 
+          <Marker
+            key={index}
             position={marker}
-            onClick={() => handleMarkerClick(marker)} 
-            />
-          
+            onClick={() => handleMarkerClick(marker)}
+            icon={getMarkerIcon(marker.type)} // Use the custom marker icon based on the type
+          />
         ))}
-        <EventFormModal 
-        ref={eventModalRef} 
-        user={profile} 
-        show={showEventModal} 
-        setShow={setShowEventModal} 
-        updateNewEvents={updateNewEvents} 
-        coordinates={center} 
-        onClose={() => setShowEventModal(false)} 
+        <EventFormModal
+          ref={eventModalRef}
+          user={profile}
+          show={showEventModal}
+          setShow={setShowEventModal}
+          updateNewEvents={updateNewEvents}
+          coordinates={center}
+          onClose={() => setShowEventModal(false)}
         />
-        <ShowModal 
-        ref={showModalRef} 
-        set={setShowModal} 
-        show={showModal} 
-        user={profile} 
-        details={markerDetails} 
-        updateNewEvents={updateNewEvents} 
-        onClose={() => setShowModal(false)}
+        <ShowModal
+          ref={showModalRef}
+          set={setShowModal}
+          show={showModal}
+          user={profile}
+          details={markerDetails}
+          updateNewEvents={updateNewEvents}
+          onClose={() => setShowModal(false)}
         />
         {response && <DirectionsRenderer directions={response} />}
         <input
@@ -159,6 +271,6 @@ const MapContainer = ({ user, profile }) => {
       </GoogleMap>
     </LoadScript>
   );
-}
+};
 
 export default MapContainer;

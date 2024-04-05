@@ -22,7 +22,7 @@ function App() {
       {showProfile && profile ? (
         <div className="profile-section">
           <h3>User Logged in</h3>
-          <p>Name: {profile?.userName}</p>
+          <p>Name: {profile.user?.userName}</p> {/* Access userName property */}
           <button onClick={logOut}>Log out</button>
         </div>
       ) : null}

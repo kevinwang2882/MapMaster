@@ -40,23 +40,7 @@ body{
 
 
 
-/* Style for input fields */
-.ShowModal input[type="text"] {
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 16px;
-}
-.ShowModal input[type="submit"] 
-{
-  background-color: #007bff; /* Change this to your preferred button color */
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  font-size: 16px;
-}
+
 .EventModal {
   display: flex;
   justify-content: center;
@@ -115,17 +99,7 @@ body{
 .EventModal input[name="description"] {
   font-size: 18px; 
 }
-.ShowModal {
-  background-color: #f0f0f0; 
-  padding: 20px; 
-  border-radius: 5px; 
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
-  position: relative;
-  max-width: 400px; 
-  margin: 0 auto; 
-  overflow-y:auto ;
-  right:25%;
-}
+
 
 form {
   margin-top: 15px; 
@@ -157,3 +131,83 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #0056b3; 
 }
+
+/* Style for the hamburger button */
+.hamburger-button {
+  position: fixed;
+  top: 6vh;
+  left: 3vh;
+  z-index:3;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background-color: transparent;
+}
+
+/* Style for each bar in the hamburger button */
+.bar {
+  width: 80%;
+  border:1px white solid;
+  height: 4px;
+  background-color: black;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.profile-section {
+  display: none;
+  position: fixed;
+  top:10vh;
+  left: 3vh;
+  color:white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 2; /* Ensure it's above other content */
+  text-align: left;
+  background-color: black;
+  border:1px solid white;
+}
+
+/* Show the profile section when the hamburger button is active */
+.hamburger-button.active + .profile-section {
+  display: block;
+}
+
+/* Style for the profile section title */
+.profile-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: white;
+}
+
+/* Style for the user information */
+.profile-section p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: white;
+}
+
+/* Style for the log out button */
+.profile-section button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Style for the log out button on hover */
+.profile-section button:hover {
+  background-color: #ff331a;
+}
+

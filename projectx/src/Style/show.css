@@ -1,0 +1,48 @@
+.ShowModal{
+    display: flex;
+    height: 80vh;
+    width: 25%;
+    min-width:300px;
+    min-height:500px;
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    flex-direction:column;
+    margin-left: 5%;
+    margin-top:5%;
+    border-radius: 25px;
+    box-shadow: 12px 12px 20px 1px black;
+  }
+  .ShowModal form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Style for input fields */
+  .ShowModal input[type="text"] {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+  
+  /* Style for the submit button */
+  .ShowModal input[type="submit"] 
+  {
+    background-color: #007bff; /* Change this to your preferred button color */
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+  .star-image {
+    width: 20px; /* Adjust the size as needed */
+    height: 20px; /* Adjust the size as needed */
+    cursor: pointer;
+  }
+  
+  input[type="radio"] {
+    display: none; /* Hide the radio buttons */
+  }

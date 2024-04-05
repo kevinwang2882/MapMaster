@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { deleteEvent, updateEvent } from '../api/event';
+import { FaStar } from "react-icons/fa";
+import '../Style/show.css';
 
 const Show = React.forwardRef((props, ref) => {
   const details = props.details;
@@ -30,13 +32,21 @@ const Show = React.forwardRef((props, ref) => {
   const handleDelete = () => {
     deleteEvent(props.details._id, props.user.user._id)
     setTimeout(() => {
-      console.log('FIRING')
+     
       props.updateNewEvents(true)
     }, 1000)
     props.set(false)
   };
 
   const loaded = () => {
+    const renderStars = (rating) => {
+      const stars = [];
+      for (let i = 0; i < rating; i++) {
+        stars.push(<FaStar key={i} />);
+      }
+      return stars;
+    };
+
     return (
       <>
         <h1>{details.name}</h1>
@@ -47,7 +57,7 @@ const Show = React.forwardRef((props, ref) => {
           alt={details.name}
         />
         <h2>{details.description}</h2>
-        <h2>{details.rate}</h2>
+        <div className="rating">{renderStars(details.rate)}</div>
       </>
     );
   };
@@ -99,17 +109,22 @@ const Show = React.forwardRef((props, ref) => {
               placeholder="description"
               onChange={handleChange}
             />
+            <input
+              type="hidden"
+              value={editForm.rate}
+              name="rate"
+            />
             <div>
               <label>Rating:</label>
               {[1, 2, 3, 4, 5].map((value) => (
-                <input
+                <span
                   key={value}
-                  type="radio"
-                  value={value}
-                  name="rate"
-                  checked={editForm.rate === value}
-                  onChange={handleChange}
-                />
+                  onClick={() => setEditForm((prevState) => ({ ...prevState, rate: value }))}
+                >
+                  <FaStar
+                    className={editForm.rate >= value ? 'star-filled' : 'star-empty'}
+                  />
+                </span>
               ))}
             </div>
             <input type="submit" value="Update Event" />
@@ -118,7 +133,7 @@ const Show = React.forwardRef((props, ref) => {
       )}
     </div>
   );
-})
+});
 
 Show.displayName = 'Show'; 
 export default Show;
