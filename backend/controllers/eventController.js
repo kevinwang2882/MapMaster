@@ -15,7 +15,7 @@ const { User, Event } = require('../models');
   const createEvent = async (req, res) => {
   console.log(req.body);
   try {
-    const { name, address, coordinates, imageUrl, description, userId } = req.body;
+    const { name, address, coordinates, imageUrl, description,rate, userId } = req.body;
 
     const user = await User.findById(userId);
 
@@ -33,13 +33,16 @@ const { User, Event } = require('../models');
       coordinates,
       imageUrl,
       description,
+      rate,
     });
 
     const savedEvent = await newEvent.save();
-
+    console.log(savedEvent._id)
+    
     user.events.push(savedEvent._id);
+   
     await user.save();
-
+  
     res.status(201).json(savedEvent);
   } catch (error) {
     console.error(error);

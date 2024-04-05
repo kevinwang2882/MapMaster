@@ -5,7 +5,7 @@ const User = new Schema(
     {
         googleId: {type: String, },
         userName:{type: String, },
-        events:{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}
+        events:[{type: mongoose.Schema.Types.ObjectId, ref: 'Event'}]
     }
 )
 
