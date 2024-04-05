@@ -15,7 +15,7 @@ const { User, Event } = require('../models');
   const createEvent = async (req, res) => {
   console.log(req.body);
   try {
-    const { name, address, coordinates, imageUrl, description,rate, userId } = req.body;
+    const { name, address, coordinates, imageUrl, description,rate,type, userId } = req.body;
 
     const user = await User.findById(userId);
 
@@ -32,6 +32,7 @@ const { User, Event } = require('../models');
       address,
       coordinates,
       imageUrl,
+      type,
       description,
       rate,
     });
@@ -110,6 +111,8 @@ const { User, Event } = require('../models');
       address: req.body.address || event.address,
       imageUrl: req.body.imageUrl || event.imageUrl,
       description: req.body.description || event.description,
+      rate: req.body.rate || event.rate,
+      type: req.body.type || event.type,
     };
 
     const updatedEvent = await Event.findByIdAndUpdate(eventId, eventData, { new: true });

@@ -15,7 +15,8 @@ const Event = new Schema(
     },
     imageUrl: { type: String, required: true },
     description: { type: String, required: true },
-    rate: { type: Number, required: true }
+    rate: { type: Number, required: true },
+    type:{type: String, required: true}
   },
   { timestamps: true }
 );
