@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { createEvent } from '../api/event';
 import { GoogleAuthContext } from './useGoogleAuth';
+import "../Style/event.css"
 
 const EventFormModal = React.forwardRef((props, ref) => {
   const [newForm, setNewForm] = useState({
@@ -102,24 +103,23 @@ const EventFormModal = React.forwardRef((props, ref) => {
           onChange={handleChange}
           required
         />
-        <div>
-          <label>Rating:</label>
+        <div className='rating'>
+         <label>Rating:</label>
+         <select 
+          name="rate"
+          value={newForm.rate}
+          onChange={handleChange}
+          required
+         >
+          <option value="">Select a rating</option>
           {[1, 2, 3, 4, 5].map((value) => (
-            <label key={value}>
-              <input
-                type="radio"
-                name="rate"
-                value={value}
-                checked={newForm.rate === value}
-                onChange={() => handleRateChange(value)}
-                style={{ display: 'none' }}
-                required
-              />
-              <span className="star">&#9733;</span>
-            </label>
-          ))}
-        </div>
-        <div>
+         <option key={value} value={value}>
+         {value}
+          </option>
+         ))}
+        </select>
+        </div>    
+        <div className='type'>
           <label>Type:</label>
           <select
             name="type"
@@ -140,6 +140,7 @@ const EventFormModal = React.forwardRef((props, ref) => {
             <option value="hot_spring">Hot Spring</option>
             <option value="disney">Disney</option>
             <option value="hospital">Hospital</option>
+            
             <option value="other">Other</option>
           </select>
         </div>

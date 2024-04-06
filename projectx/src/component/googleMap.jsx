@@ -23,7 +23,7 @@ const MapContainer = ({ user, profile }) => {
     lat: 40.694700,
     lng: -73.85000
   };
-
+  const [map, setMap] = useState(null);
   const eventModalRef = useRef(null);
   const showModalRef = useRef(null);
   const [markers, setMarkers] = useState([]);
@@ -115,10 +115,7 @@ const MapContainer = ({ user, profile }) => {
     setShowModal(true);
   };
 
-  const mapContainerStyles = {
-    height: "100vh",
-    width: "100%"
-  };
+
 
   const getMarkerIcon = (type) => {
     let iconUrl = "";
@@ -168,7 +165,7 @@ const MapContainer = ({ user, profile }) => {
       scaledSize: new window.google.maps.Size(50, 50) // adjust the size as needed
     };
   };
-  const PlacesAutocomplete = ({ setMarkers }) => {
+  const PlacesAutocomplete = ({ setMarkers, map }) => {
     const {
       ready,
       value,
@@ -176,18 +173,21 @@ const MapContainer = ({ user, profile }) => {
       suggestions: { status, data },
       clearSuggestions,
     } = usePlacesAutocomplete();
-
+  
     const handleSelect = async (address) => {
       setValue(address, false);
       clearSuggestions();
-
+  
       const results = await getGeocode({ address });
       const { lat, lng } = await getLatLng(results[0]);
       setMarkers([{ lat, lng }]);
+  
+      if (map) {
+        map.setCenter({ lat, lng }); // Direct the map to the selected place
+      }
     };
-
+  
     return (
-    
       <Combobox onSelect={handleSelect}>
         <ComboboxInput
           value={value}
@@ -205,15 +205,15 @@ const MapContainer = ({ user, profile }) => {
           </ComboboxList>
         </ComboboxPopover>
       </Combobox>
-    
     );
   };
   return (
     <LoadScript googleMapsApiKey={API_KEY} language="en" libraries={libraries}>
       <div className="places-container">
-      <PlacesAutocomplete setMarkers={setMarkers} />
+      <PlacesAutocomplete setMarkers={setMarkers} map={map}/>
       </div>
       <GoogleMap
+        onLoad={(map) => setMap(map)}
         mapContainerClassName="map-container"
         zoom={12}
         center={center}

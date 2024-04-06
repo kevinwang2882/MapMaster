@@ -109,23 +109,23 @@ const Show = React.forwardRef((props, ref) => {
               placeholder="description"
               onChange={handleChange}
             />
-            <input
-              type="hidden"
-              value={editForm.rate}
-              name="rate"
-            />
-            <div>
-              <label>Rating:</label>
-              {[1, 2, 3, 4, 5].map((value) => (
-                <span
-                  key={value}
-                  onClick={() => setEditForm((prevState) => ({ ...prevState, rate: value }))}
-                >
-                  <FaStar
-                    className={editForm.rate >= value ? 'star-filled' : 'star-empty'}
-                  />
-                </span>
-              ))}
+           <input
+           type="hidden"
+           value={editForm.rate}
+           name="rate"
+           />
+            <h3>Rating:</h3>
+            <div className='show-rating'>
+            
+            <select
+            value={editForm.rate}
+            onChange={(e) => setEditForm((prevState) => ({ ...prevState, rate: parseInt(e.target.value) }))}
+             >
+             <option value="">Select a rating</option>
+            {[1, 2, 3, 4, 5].map((value) => (
+             <option key={value} value={value}>{value}</option>
+           ))}
+            </select>
             </div>
             <input type="submit" value="Update Event" />
           </form>
