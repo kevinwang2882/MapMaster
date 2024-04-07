@@ -1,10 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { deleteEvent, updateEvent } from '../api/event';
+import {createComment,getComment} from '../api/comment'
 import { FaStar } from "react-icons/fa";
 import '../Style/show.css';
+import { useCommentContext } from './comment';
 
 const Show = React.forwardRef((props, ref) => {
+  const { content, setContent } = useCommentContext();
+  const [newComment, setNewComment] = useState('');
+  const [comments, setComments] = useState([]);
+
+  const handleAddComment = (event) => {
+    event.preventDefault();
+    if (newComment.trim() === '') {
+      return;
+    }
+    const updatedComments = [...content, { text: newComment }];
+    setContent(updatedComments);
+    createComment(props.details._id, props.user.user._id, newComment,props.user.user.userName);
+    setNewComment('');
+  };
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const commentsData = [];
+      if (props.details && props.details.comments) { // Check if props.details.comments is not null
+        for (const commentId of props.details.comments) {
+          const comment = await getComment(commentId); // Fetch comment content
+          commentsData.push(comment);
+        }
+      }
+      setComments(commentsData);
+    };
+  
+    fetchComments();
+  }, [props.details]);
+  
   const details = props.details;
+  
+  console.log(details)
+  console.log(comments)
   const [editForm, setEditForm] = useState({
     name: "",
     address: "",
@@ -14,9 +49,10 @@ const Show = React.forwardRef((props, ref) => {
   });
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
     setEditForm((prevState) => ({
       ...prevState,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }));
   };
 
@@ -32,7 +68,6 @@ const Show = React.forwardRef((props, ref) => {
   const handleDelete = () => {
     deleteEvent(props.details._id, props.user.user._id)
     setTimeout(() => {
-     
       props.updateNewEvents(true)
     }, 1000)
     props.set(false)
@@ -57,7 +92,31 @@ const Show = React.forwardRef((props, ref) => {
           alt={details.name}
         />
         <h2>{details.description}</h2>
-        <div className="rating">{renderStars(details.rate)}</div>
+        <div className="rate">{renderStars(details.rate)}</div>
+        <div>
+      {comments.map((comment, index) => (
+        <h3 key={index}>{comment.author}: {comment.content}</h3>
+      ))}
+    </div>
+
+    <div className="comment-section">
+      <h3>{props.user.user.userName}:</h3>
+      <h3>Comments:</h3>
+      {content.map((content, index) => (
+        <div key={index} className="content">
+          <p>{props.user.user.userName}: {content.text}</p>
+        </div>
+      ))}
+      <form onSubmit={handleAddComment}>
+        <input
+          type="text"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Add a comment..."
+        />
+        <button type="submit">Add</button>
+      </form>
+        </div>
       </>
     );
   };
@@ -109,23 +168,22 @@ const Show = React.forwardRef((props, ref) => {
               placeholder="description"
               onChange={handleChange}
             />
-           <input
-           type="hidden"
-           value={editForm.rate}
-           name="rate"
-           />
+            <input
+              type="hidden"
+              value={editForm.rate}
+              name="rate"
+            />
             <h3>Rating:</h3>
             <div className='show-rating'>
-            
-            <select
-            value={editForm.rate}
-            onChange={(e) => setEditForm((prevState) => ({ ...prevState, rate: parseInt(e.target.value) }))}
-             >
-             <option value="">Select a rating</option>
-            {[1, 2, 3, 4, 5].map((value) => (
-             <option key={value} value={value}>{value}</option>
-           ))}
-            </select>
+              <select
+                value={editForm.rate}
+                onChange={(e) => setEditForm((prevState) => ({ ...prevState, rate: parseInt(e.target.value) }))}
+              >
+                <option value="">Select a rating</option>
+                {[1, 2, 3, 4, 5].map((value) => (
+                  <option key={value} value={value}>{value}</option>
+                ))}
+              </select>
             </div>
             <input type="submit" value="Update Event" />
           </form>
@@ -134,6 +192,8 @@ const Show = React.forwardRef((props, ref) => {
     </div>
   );
 });
+
+
 
 Show.displayName = 'Show'; 
 export default Show;
