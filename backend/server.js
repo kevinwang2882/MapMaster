@@ -31,8 +31,9 @@ app.use(passport.session());
 
 // Routes
 app.post('/api/comment/', commentController.createComment);
-app.put('/api/comment/:id/', commentController.updateComment);
-app.delete('/api/comment/:id/', commentController.deleteComment);
+app.put('/api/comment/', commentController.updateComment);
+app.delete('/api/comment/', commentController.deleteComment);
+app.get('/api/comment/', commentController.getComment);
 
 app.put('/api/event/', eventController.updateEvent);
 app.delete('/api/event/', eventController.deleteEvent);
