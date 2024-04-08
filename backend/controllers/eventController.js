@@ -1,4 +1,4 @@
-const { User, Event } = require('../models');
+const { User, Event,Comment } = require('../models');
 
 
   const getEvents = async (req, res) => {
@@ -72,7 +72,14 @@ const { User, Event } = require('../models');
       $pull: { events: eventId }
     });
 
+    const commentId = event.comments;
+    
+    await Comment.findByIdAndUpdate(commentId, {
+      $pull: { events: eventId }
+    });
+
     await Event.findByIdAndDelete(eventId);
+    await Comment.findByIdAndDelete(commentId);
 
     return res.status(200).json({ message: 'Event deleted successfully' });
   } catch (error) {

@@ -35,12 +35,13 @@ app.put('/api/comment/', commentController.updateComment);
 app.delete('/api/comment/', commentController.deleteComment);
 app.get('/api/comment/', commentController.getComment);
 
-app.put('/api/event/', eventController.updateEvent);
-app.delete('/api/event/', eventController.deleteEvent);
+app.put('/api/event/:id/', eventController.updateEvent);
+app.delete('/api/event/:id/', eventController.deleteEvent);
 app.post('/api/event/', eventController.createEvent);
 app.get('/api/event/', eventController.getEvents);
 
 app.post('/api/user/', userController.createUser);
+app.get('/api/user/', userController.getUser);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -22,7 +22,16 @@ const createUser = async (req, res) => {
     return res.status(500).json({ message: 'Error processing the profile', error: err.message });
   }
 };
-
+const getUser = async (req, res) => {
+  try {
+    const user = await User.find();
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
 module.exports = {
   createUser,
+  getUser
 };
