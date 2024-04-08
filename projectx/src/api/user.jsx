@@ -10,3 +10,13 @@ export const createUser = async (googleUser, googleProfile) => {
         throw error;
     }
 };
+export const getUser = async () => {
+    try {
+      const response = await api.get('/user/');
+      console.log('receiving data:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      return [];
+    }
+  };

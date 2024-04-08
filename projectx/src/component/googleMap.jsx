@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, Marker, DirectionsRenderer } from '@react-google
 import EventFormModal from './eventFormModal';
 import ShowModal from './eventModal';
 import { getAllEvents } from '../api/event';
-import { FaHotel } from "react-icons/fa";
+
 import usePlacesAutocomplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import {
   Combobox,
@@ -64,12 +64,20 @@ const MapContainer = ({ user, profile }) => {
   useEffect(() => {
     const fetchEvents = async () => {
       const data = await getAllEvents();
-      if (Array.isArray(data)) {
-        setEvents(data);
-      }
+      setEvents(data);
     };
     fetchEvents();
-  }, [newEvent]);
+  }, []);
+
+  useEffect(() => {
+ 
+    const fetchEvents = async () => {
+      const data = await getAllEvents();
+      setEvents(data);
+    };
+    fetchEvents();
+    updateNewEvents(false)
+  }, [newEvent, eventModalRef, showModalRef]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -219,21 +227,22 @@ const MapContainer = ({ user, profile }) => {
         center={center}
         onDblClick={handleMapClick}
         options={{ mapId: map_id, disableDoubleClickZoom: true }}
+       
       >
-        {user && events.map(event => (
-          <Marker
-            key={event._id}
-            position={{ lat: event.coordinates.lat, lng: event.coordinates.lng }}
-            icon={getMarkerIcon(event.type)} // Use the custom marker icon
-            onClick={() => handleMarkerClick(event)}
-          />
-        ))}
         {user && markers.map((marker, index) => (
           <Marker
             key={index}
             position={marker}
             onClick={() => handleMarkerClick(marker)}
             icon={getMarkerIcon(marker.type)} // Use the custom marker icon based on the type
+          />
+        ))}
+         {user && events.map(event => (
+          <Marker
+            key={event._id}
+            position={{ lat: event.coordinates.lat, lng: event.coordinates.lng }}
+            icon={getMarkerIcon(event.type)} // Use the custom marker icon
+            onClick={() => handleMarkerClick(event)}
           />
         ))}
         <EventFormModal
@@ -244,6 +253,7 @@ const MapContainer = ({ user, profile }) => {
           updateNewEvents={updateNewEvents}
           coordinates={center}
           onClose={() => setShowEventModal(false)}
+
         />
         <ShowModal
           ref={showModalRef}
@@ -254,20 +264,6 @@ const MapContainer = ({ user, profile }) => {
           updateNewEvents={updateNewEvents}
           onClose={() => setShowModal(false)}
         />
-        {response && <DirectionsRenderer directions={response} />}
-        <input
-          type="text"
-          placeholder="Origin"
-          value={origin}
-          onChange={(e) => setOrigin(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Destination"
-          value={destination}
-          onChange={(e) => setDestination(e.target.value)}
-        />
-        <button onClick={handleDirections}>Get Directions</button>
       </GoogleMap>
     </LoadScript>
   );

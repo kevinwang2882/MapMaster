@@ -9,37 +9,57 @@ const Show = React.forwardRef((props, ref) => {
   const { content, setContent } = useCommentContext();
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
+  
 
-  const handleAddComment = (event) => {
+  const handleAddComment = async (event) => {
     event.preventDefault();
     if (newComment.trim() === '') {
       return;
     }
-    const updatedComments = [...content, { text: newComment }];
-    setContent(updatedComments);
-    createComment(props.details._id, props.user.user._id, newComment,props.user.user.userName);
-    setNewComment('');
+  
+    try {
+      // Create new comment
+      await createComment(props.details._id, props.user.user._id, newComment, props.user.user.userName);
+  
+      // Update comments state by adding the new comment
+      setComments((prevComments) => [
+        ...prevComments,
+        { userName: props.user.user.userName, content: [newComment] },
+      ]);
+  
+      setNewComment('');
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      // Handle error (e.g., show a message to the user)
+    }
   };
-
+  
   useEffect(() => {
     const fetchComments = async () => {
-      const commentsData = [];
-      if (props.details && props.details.comments) { // Check if props.details.comments is not null
+      if (props.details && Array.isArray(props.details.comments) && props.details.comments.length > 0) {
+        const commentsData = [];
         for (const commentId of props.details.comments) {
-          const comment = await getComment(commentId); // Fetch comment content
-          commentsData.push(comment);
+          try {
+            const comment = await getComment(commentId);
+            commentsData.push(comment);
+          } catch (error) {
+            console.error(`Error fetching comment ${commentId} for event ${props.details._id}:`, error);
+            // Handle error (e.g., show a message to the user)
+          }
         }
+        setComments(commentsData.flat());
       }
-      setComments(commentsData);
     };
   
+    setComments([]); // Clear comments before fetching new comments for the new event
     fetchComments();
   }, [props.details]);
-  
+
+
   const details = props.details;
   
-  console.log(details)
-  console.log(comments)
+  
+ 
   const [editForm, setEditForm] = useState({
     name: "",
     address: "",
@@ -69,7 +89,7 @@ const Show = React.forwardRef((props, ref) => {
     deleteEvent(props.details._id, props.user.user._id)
     setTimeout(() => {
       props.updateNewEvents(true)
-    }, 1000)
+    }, 1500)
     props.set(false)
   };
 
@@ -94,28 +114,25 @@ const Show = React.forwardRef((props, ref) => {
         <h2>{details.description}</h2>
         <div className="rate">{renderStars(details.rate)}</div>
         <div>
-      {comments.map((comment, index) => (
-        <h3 key={index}>{comment.author}: {comment.content}</h3>
-      ))}
+      
     </div>
 
     <div className="comment-section">
-      <h3>{props.user.user.userName}:</h3>
-      <h3>Comments:</h3>
-      {content.map((content, index) => (
-        <div key={index} className="content">
-          <p>{props.user.user.userName}: {content.text}</p>
-        </div>
-      ))}
-      <form onSubmit={handleAddComment}>
-        <input
-          type="text"
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          placeholder="Add a comment..."
-        />
-        <button type="submit">Add</button>
-      </form>
+        <h3>Comments:</h3>
+        {comments.map((comment, index) => (
+          <div key={index} className="content">
+            <p>{comment.userName}: {comment.content[0]}</p>
+          </div>
+        ))}
+        <form onSubmit={handleAddComment}>
+          <input
+            type="text"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="Add a comment..."
+          />
+          <button className='add-button' type="submit">ADD</button>
+        </form>
         </div>
       </>
     );

@@ -18,12 +18,12 @@ export const createEvent = async (form) => {
 
 export const deleteEvent = async (eventId, userId) =>{
 
-  const response = await api.delete(`/event/${eventId}`)
+  const response = await api.delete(`/event/${eventId}/`)
   return response.data
 }
 
 export const updateEvent = async (eventId, name, address, imageUrl, details ) => {
   console.log(eventId)
-  const response = await api.put(`/event/${eventId}`, name, address, imageUrl, details)
+  const response = await api.put(`/event/${eventId}/`, name, address, imageUrl, details)
   return response.data
 }

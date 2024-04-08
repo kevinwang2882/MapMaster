@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { createEvent } from '../api/event';
-
 import { GoogleAuthContext } from './useGoogleAuth';
 import "../Style/event.css"
 
@@ -10,12 +9,12 @@ const EventFormModal = React.forwardRef((props, ref) => {
     address: "",
     imageUrl: "",
     description: "",
-    rate: 0, // Initialize rate to 0
-    type: "", // Initialize type to empty string
+    rate: 1, // Initialize rate to 0
+    type: "hotel", // Initialize type to empty string
     coordinates: null,
     userId: null // Set userId based on the logged-in user ID
   });
-  const { user, profile } = useContext(GoogleAuthContext);
+  const { user, profile,login, logOut } = useContext(GoogleAuthContext);
 
   const handleChange = (event) => {
     setNewForm((prevState) => ({
@@ -51,14 +50,14 @@ const EventFormModal = React.forwardRef((props, ref) => {
     createEvent(updatedForm);
     setTimeout(() => {
       props.updateNewEvents(true);
-    }, 1000);
+    }, 1500);
     setNewForm({
       name: "",
-      type: "",
+      type: "hotel",
       address: "",
       imageUrl: "",
       description: "",
-      rate: 0,
+      rate: 1,
       coordinates: null,
       userId: null
     });
@@ -78,7 +77,7 @@ const EventFormModal = React.forwardRef((props, ref) => {
           name="name"
           placeholder="Name"
           onChange={handleChange}
-          required
+          required={true}
         />
         <input
           type="text"
@@ -86,7 +85,7 @@ const EventFormModal = React.forwardRef((props, ref) => {
           name="address"
           placeholder="Address"
           onChange={handleChange}
-          required
+          required={true}
         />
         <input
           type="text"
@@ -94,7 +93,7 @@ const EventFormModal = React.forwardRef((props, ref) => {
           name="imageUrl"
           placeholder="Image URL"
           onChange={handleChange}
-          required
+          required={true}
         />
         <input
           type="text"
@@ -102,15 +101,15 @@ const EventFormModal = React.forwardRef((props, ref) => {
           name="description"
           placeholder="Description"
           onChange={handleChange}
-          required
+          required={true}
         />
         <div className='rating'>
          <label>Rating:</label>
          <select 
           name="rate"
           value={newForm.rate}
-          onChange={handleChange}
-          required
+          onChange={handleRateChange}
+          required={true}
          >
           <option value="">Select a rating</option>
           {[1, 2, 3, 4, 5].map((value) => (
@@ -126,7 +125,7 @@ const EventFormModal = React.forwardRef((props, ref) => {
             name="type"
             value={newForm.type}
             onChange={handleChange}
-            required
+            required={true}
           >
             <option value="">Select a type</option>
             <option value="hotel">Hotel</option>
@@ -141,7 +140,6 @@ const EventFormModal = React.forwardRef((props, ref) => {
             <option value="hot_spring">Hot Spring</option>
             <option value="disney">Disney</option>
             <option value="hospital">Hospital</option>
-            
             <option value="other">Other</option>
           </select>
         </div>
