@@ -1,12 +1,11 @@
 # project4
 
-an app is designed for creating and sharing events using google map api. User must login  with gmail first.Then Users can create events, set up event details,type of event ,rating and locations, and notify other users.
+an app is designed for creating and sharing events using google map api. User must login  with gmail first.Then Users can create events, set up event details,type of event ,rating and locations, and notify other users.All user can make commit on the events.
 
 login page
 
 Creating event form
 
-![Component Hierarchy](assets/ComponentHierarchy.png)
 
 #How to use  this App
 
@@ -26,12 +25,12 @@ Creating event form
 -JavaScript
 
 ##MVP Goals
--**CRUD**:Have full CRUD operations (POST, GET, PUT, DELETE) on event model.
--**User Signin/Login/logout **: The user can register/login by gmail 
--**Map**:Use google map api to generate map
--**search place**:Use google place api to make an autocomplete search bar ,then use geocoding api to get lat and lng of that place,  
+**CRUD**:Have full CRUD operations (POST, GET, PUT, DELETE) on event model.
+**User Signin/Login/logout **: The user can register/login by gmail 
+**Map**:Use google map api to generate map
+**search place**:Use google place api to make an autocomplete search bar ,then use geocoding api to get lat and lng of that place,  
                   when autocomplete place was clicked, it will automatically direct to that exact place's location.
--**comment**:All user can make comment for the event. 
+**comment**:All user can make comment for the event. 
 
 ## Stretch
 
