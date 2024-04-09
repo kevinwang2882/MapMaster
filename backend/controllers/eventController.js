@@ -50,7 +50,24 @@ const { User, Event,Comment } = require('../models');
     res.status(500).json({ message: 'Internal Server Error' });
   }
 }
+const getLikes = async (req, res) => {
+  const { eventId } = req.params;
+    console.log(eventId)
+  try {
+    const event = await Event.findById(eventId);
 
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    const likes = event.likes;
+
+    res.status(200).json({ likes });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
   const deleteEvent = async (req, res) => {
   try {
@@ -129,10 +146,48 @@ const { User, Event,Comment } = require('../models');
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 }
+
+
+const createLike = async (req, res) => {
+  const { eventId, userId } = req.params;
+  const { action } = req.body;
+
+  try {
+    let event = await Event.findById(eventId);
+
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    if (action !== 'like' && action !== 'dislike') {
+      return res.status(400).json({ message: 'Invalid action' });
+    }
+
+    const likeField = action === 'like' ? 'likes' : 'dislikes';
+    const oppositeField = action === 'like' ? 'dislikes' : 'likes';
+
+    // Using $addToSet to ensure uniqueness
+    await Event.updateOne(
+      { _id: eventId },
+      {
+        $addToSet: { [likeField]: userId },
+        $pull: { [oppositeField]: userId }
+      }
+    );
+
+    res.status(200).json({ message: 'Action saved successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports ={
   getEvents,
   createEvent,
   deleteEvent,
-  updateEvent
+  updateEvent,
+  createLike,
+  getLikes
 
 }

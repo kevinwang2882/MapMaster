@@ -13,6 +13,7 @@ const commentController = require('./controllers/commentController');
 const eventController = require('./controllers/eventController');
 const userController = require('./controllers/userController');
 
+
 const app = express();
 const PORT = process.env.PORT 
 
@@ -39,9 +40,12 @@ app.put('/api/event/:id/', eventController.updateEvent);
 app.delete('/api/event/:id/', eventController.deleteEvent);
 app.post('/api/event/', eventController.createEvent);
 app.get('/api/event/', eventController.getEvents);
+app.post('/api/event/:eventId/:userId/like/', eventController.createLike);
+app.get('/api/event/:eventId/:userId/like/',eventController.getLikes)
 
 app.post('/api/user/', userController.createUser);
 app.get('/api/user/', userController.getUser);
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

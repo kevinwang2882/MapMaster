@@ -14,5 +14,6 @@ module.exports = {
     Comment,
     Event,
     User,
+ 
 
 }

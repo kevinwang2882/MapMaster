@@ -16,7 +16,9 @@ const Event = new Schema(
     imageUrl: { type: String, required: true },
     description: { type: String, required: true },
     rate: { type: Number, required: true },
-    type:{type: String, required: true}
+    type:{type: String, required: true},
+    likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    dislikes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
   { timestamps: true }
 );
