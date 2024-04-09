@@ -34,3 +34,6 @@ Creating event form
 -**comment**:All user can make comment for the event. 
 
 ## Stretch
+
+##ERD
+![ERD](projectx/public/erd.png)
