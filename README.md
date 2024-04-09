@@ -10,3 +10,17 @@ Creating event form
 
 #How to use  this App
 
+
+##Technologies Used
+-REACT
+-Google Oauth
+-Google Places API
+-Google Geocoding API
+-Google Maps API
+-Node.js
+-Express
+-JSON
+-Mongoose
+-MongoDb
+-CSS
+-JavaScript
