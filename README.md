@@ -1,13 +1,14 @@
 # project4
 
-an app is designed for creating and sharing events using google map api. User must login  with gmail first.Then Users can create events, set up event details,type of event ,rating and locations, and notify other users.All user can make commit on the events.
+an app is named as Map Master google map api. 
 
 login page
 
 Creating event form
 
 
-#How to use  this App
+# How to use  this App
+an app is designed for creating and sharing events using google map api. User must login  with gmail first.Then Users can create events, set up event details,type of event ,rating and locations, and notify other users.All user can make commit on the events.
 
 
 ##Technologies Used
@@ -24,7 +25,7 @@ Creating event form
 -CSS
 -JavaScript
 
-##MVP Goals
+## MVP Goals
 **CRUD**:Have full CRUD operations (POST, GET, PUT, DELETE) on event model.
 **User Signin/Login/logout **: The user can register/login by gmail 
 **Map**:Use google map api to generate map
@@ -34,5 +35,5 @@ Creating event form
 
 ## Stretch
 
-##ERD
+## ERD
 ![ERD](projectx/public/erd.png)
