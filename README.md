@@ -24,3 +24,8 @@ Creating event form
 -MongoDb
 -CSS
 -JavaScript
+
+##MVP Goals
+-**CRUD**:Have full CRUD operations (POST, GET, PUT, DELETE) on event model.
+-**User Signin/Login/logout **: The user can register/login by gmail 
+-
