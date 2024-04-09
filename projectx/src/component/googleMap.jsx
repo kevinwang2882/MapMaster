@@ -126,10 +126,6 @@ const MapContainer = ({ user, profile }) => {
 
 
 
-  const handleGameClick = () => {
-    setHideMarkers(true);
-  };
-
   const getMarkerIcon = (type) => {
     let iconUrl = "";
     switch (type) {
@@ -142,8 +138,8 @@ const MapContainer = ({ user, profile }) => {
       case 'school':
         iconUrl = "https://cdn-icons-png.flaticon.com/512/8/8178.png";
         break;
-      case 'airport':
-        iconUrl = "https://cdn-icons-png.flaticon.com/512/9/9771.png";
+      case 'bar':
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/8/8136.png";
         break;
       case 'park':
         iconUrl = "https://cdn-icons-png.flaticon.com/512/9/9770.png";
@@ -151,23 +147,23 @@ const MapContainer = ({ user, profile }) => {
       case 'home':
         iconUrl = "https://static.thenounproject.com/png/279259-200.png";
         break;
-      case 'bubble_tea':
-        iconUrl = "https://static.thenounproject.com/png/37156-200.png";
+      case 'grocery_market':
+        iconUrl = "";
         break;
       case 'cafe':
         iconUrl = "https://static.thenounproject.com/png/331590-200.png";
         break;
-      case 'amusement_park':
-        iconUrl = "https://cdn-icons-png.freepik.com/512/3175/3175179.png";
+      case 'entertainment':
+        iconUrl = "";
         break;
-      case 'hot_spring':
-        iconUrl = "https://cdn-icons-png.flaticon.com/512/5508/5508087.png";
-        break;
-      case 'disney':
-        iconUrl = "https://pngimg.com/d/disneyland_PNG24.png";
+      case 'secret':
+        iconUrl = "";
         break;
       case 'hospital':
         iconUrl = "https://i.imgur.com/pngr1W1.png";
+        break;
+      case 'Mall':
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/3448/3448673.png";
         break;
       default:
         iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/289/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_178-512.png";
@@ -269,9 +265,7 @@ const MapContainer = ({ user, profile }) => {
           updateNewEvents={updateNewEvents}
           onClose={() => setShowModal(false)}
         />
-        <div>
-        <button className='game-button' onClick={handleGameClick}>Hide All Markers</button>
-      </div>
+
       </GoogleMap>
     </LoadScript>
   );

@@ -108,7 +108,7 @@ const EventFormModal = React.forwardRef((props, ref) => {
          <select 
           name="rate"
           value={newForm.rate}
-          onChange={handleRateChange}
+          onChange={handleChange}
           required={true}
          >
           <option value="">Select a rating</option>
@@ -129,17 +129,19 @@ const EventFormModal = React.forwardRef((props, ref) => {
           >
             <option value="">Select a type</option>
             <option value="hotel">Hotel</option>
-            <option value="restaurant">Restaurant</option>
+            <option value="restaurant">Food/Dessert</option>
             <option value="school">School</option>
-            <option value="airport">Airport</option>
+            <option value="bar">Bar</option>
+            <option value="mall">Mall/</option>
             <option value="park">Park</option>
             <option value="home">Home</option>
-            <option value="bubble_tea">Bubble Tea</option>
-            <option value="cafe ">Cafe</option>
+            <option value="grocery_market">Grocery/Market</option>
+            <option value="cafe">Cafe/Tea</option>
             <option value="amusement_park">Amusement Park</option>
-            <option value="hot_spring">Hot Spring</option>
-            <option value="disney">Disney</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="secret">Secret</option> 
             <option value="hospital">Hospital</option>
+            
             <option value="other">Other</option>
           </select>
         </div>
