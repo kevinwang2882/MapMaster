@@ -71,7 +71,7 @@
     max-width: 400px; 
     margin: 80px 500px;
     overflow-y:auto ;
-    right:25%;
+    right:5%;
   }
   
   #delete {
@@ -122,4 +122,16 @@
   
   input[type="submit"]:hover {
     background-color: #0056b3; 
+  }
+
+  .show-button {
+    padding: 8px 16px;
+    background-color: #ccc;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .show-button.liked {
+    background-color: #f00; /* Change to your desired color */
   }

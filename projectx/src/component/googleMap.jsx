@@ -157,7 +157,7 @@ const MapContainer = ({ user, profile }) => {
         iconUrl = "";
         break;
       case 'secret':
-        iconUrl = "";
+        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/289/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_178-512.png";
         break;
       case 'hospital':
         iconUrl = "https://i.imgur.com/pngr1W1.png";
@@ -166,7 +166,7 @@ const MapContainer = ({ user, profile }) => {
         iconUrl = "https://cdn-icons-png.flaticon.com/512/3448/3448673.png";
         break;
       default:
-        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/289/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_178-512.png";
+        iconUrl = "https://www.svgrepo.com/show/1276/map-pin.svg";
         break;
     }
     return {

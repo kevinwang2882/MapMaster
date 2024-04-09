@@ -24,6 +24,24 @@ export const deleteEvent = async (eventId, userId) =>{
 
 export const updateEvent = async (eventId, name, address, imageUrl, details ) => {
   console.log(eventId)
-  const response = await api.put(`/event/${eventId}/`, name, address, imageUrl, details)
+  const response = await api.put(`/event/${eventId}/`, { name, address, imageUrl, details });
   return response.data
 }
+export const createLike = async (eventId, userId, action) => {
+  try {
+    const response = await api.post(`/event/${eventId}/${userId}/like/`, { action });
+    return response.data;
+  } catch (error) {
+    console.error('Error liking event:', error);
+    throw error;
+  }
+};
+export const getLikeCount = async (eventId, action) => {
+  try {
+    const response = await api.get(`/event/${eventId}/like/`);
+    return response.data;
+  } catch (error) {
+    console.error('Error liking event:', error);
+    throw error;
+  }
+};

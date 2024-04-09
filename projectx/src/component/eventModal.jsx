@@ -1,15 +1,67 @@
 import React, { useState, useEffect } from 'react';
-import { deleteEvent, updateEvent } from '../api/event';
+import { deleteEvent, updateEvent,createLike } from '../api/event';
 import {createComment,getComment} from '../api/comment'
 import { FaStar } from "react-icons/fa";
 import '../Style/show.css';
 import { useCommentContext } from './comment';
 
+
 const Show = React.forwardRef((props, ref) => {
   const { content, setContent } = useCommentContext();
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
+  const [like, setlike] = useState(0);
+  const [dislike, setdislike] = useState(0);
+  const [likeactive, setlikeactive] = useState(false);
+  const [dislikeactive, setdislikeactive] = useState(false);
+
+  const length = props.details && props.details.like ? props.details.like.length : 0;
+  const dislength = props.details && props.details.dislike ? props.details.dislike.length : 0;
+
+  console.log(length)
+  const handleLike = async () => {
+    try {
+      // Pass true to indicate a like action
+      await createLike(props.details._id, props.user.user._id, 'like');
   
+      if (likeactive) {
+        setlikeactive(false);
+        setlike(like - 1);
+      } else {
+        setlikeactive(true);
+        setlike(like + 1);
+        if (dislikeactive) {
+          setdislikeactive(false);
+          setdislike(dislike - 1);
+        }
+      }
+    } catch (error) {
+      console.error('Error liking event:', error);
+    }
+  };
+
+  const handleDislike = async () => {
+    try {
+      // Pass true to indicate a like action
+      await createLike(props.details._id, props.user.user._id, 'dislike');
+  
+      if (dislikeactive) {
+        setdislikeactive(false);
+        setdislike(dislike - 1);
+      } else {
+        setdislikeactive(true);
+        setdislike(dislike + 1);
+        if (likeactive) {
+          setlikeactive(false);
+          setlike(like - 1);
+        }
+      }
+    } catch (error) {
+      console.error('Error liking event:', error);
+    }
+  };
+
+
 
   const handleAddComment = async (event) => {
     event.preventDefault();
@@ -30,7 +82,7 @@ const Show = React.forwardRef((props, ref) => {
       setNewComment('');
     } catch (error) {
       console.error('Error adding comment:', error);
-      // Handle error (e.g., show a message to the user)
+   
     }
   };
   
@@ -59,7 +111,7 @@ const Show = React.forwardRef((props, ref) => {
   const details = props.details;
   
   
- 
+  console.log('props.details:', props.details);
   const [editForm, setEditForm] = useState({
     name: "",
     address: "",
@@ -105,6 +157,10 @@ const Show = React.forwardRef((props, ref) => {
     return (
       <>
         <h1>{details.name}</h1>
+        <div>
+        <button onClick={handleLike} className='like-button'> Like{like} </button>
+        <button onClick={handleDislike} className='like-button'>Dislike{dislike} </button>
+        </div>
         <h2>{details.address}</h2>
         <img
           className="form-image"
