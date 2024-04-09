@@ -36,6 +36,7 @@ const MapContainer = ({ user, profile }) => {
   const [response, setResponse] = useState(null);
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
+  const [hideMarkers, setHideMarkers] = useState(false);
 
   const directionsCallback = (response) => {
     if (response !== null) {
@@ -124,6 +125,10 @@ const MapContainer = ({ user, profile }) => {
   };
 
 
+
+  const handleGameClick = () => {
+    setHideMarkers(true);
+  };
 
   const getMarkerIcon = (type) => {
     let iconUrl = "";
@@ -264,6 +269,9 @@ const MapContainer = ({ user, profile }) => {
           updateNewEvents={updateNewEvents}
           onClose={() => setShowModal(false)}
         />
+        <div>
+        <button className='game-button' onClick={handleGameClick}>Hide All Markers</button>
+      </div>
       </GoogleMap>
     </LoadScript>
   );
