@@ -6,7 +6,7 @@ login page
 ![login page](projectx/public/login.png)
 
 Creating event form
-![login page](projectx/public/login.png)
+![Creating event form](projectx/public/eventform.png)
 
 
 # How to use  this App
