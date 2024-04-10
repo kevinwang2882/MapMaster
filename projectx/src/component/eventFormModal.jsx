@@ -9,10 +9,10 @@ const EventFormModal = React.forwardRef((props, ref) => {
     address: "",
     imageUrl: "",
     description: "",
-    rate: 1, // Initialize rate to 0
-    type: "hotel", // Initialize type to empty string
+    rate: 1, 
+    type: "hotel", 
     coordinates: null,
-    userId: null // Set userId based on the logged-in user ID
+    userId: null 
   });
   const { user, profile,login, logOut } = useContext(GoogleAuthContext);
 
@@ -33,10 +33,11 @@ const EventFormModal = React.forwardRef((props, ref) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (newForm.rate === 0) {
-      // Show an alert or error message to the user
+  //require rating 
       alert("Please select a rating");
-      return; // Exit the function without submitting the form
+      return; 
     }
+    //update form
     const updatedForm = {
       name: newForm.name,
       type: newForm.type,

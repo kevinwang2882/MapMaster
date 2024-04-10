@@ -99,8 +99,7 @@ const EventModal = React.forwardRef((props, ref) => {
             const comment = await getComment(commentId);
             commentsData.push(comment);
           } catch (error) {
-            console.error(`Error fetching comment ${commentId} for event ${props.details._id}:`, error);
-            // Handle error (e.g., show a message to the user)
+            console.error(`Error fetching comment ${commentId} for event ${props.details._id}:`, error)
           }
         }
         setComments(commentsData.flat());
