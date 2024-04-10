@@ -14,18 +14,18 @@ an app is designed for creating and sharing events using google map api. User mu
 
 
 ## Technologies Used
--REACT
--Google Oauth
--Google Places API
--Google Geocoding API
--Google Maps API
--Node.js
--Express
--JSON
--Mongoose
--MongoDb
--CSS
--JavaScript
+- REACT
+- Google Oauth
+- Google Places API
+- Google Geocoding API
+- Google Maps API
+- Node.js
+- Express
+- JSON
+- Mongoose
+- MongoDb
+- CSS
+- JavaScript
 
 ## MVP Goals
 **CRUD**:Have full CRUD operations (POST, GET, PUT, DELETE) on event model.
