@@ -30,12 +30,23 @@ function App() {
         <Map user={user} profile={profile} />
       </div>
       {!profile ? (
-        <div className="button-container">
+        <div className="button-image">
           <button className="login-button" onClick={() => login()}>
             Sign in with Google 🚀
           </button>
+          <div className="video-section">
+        <div className="video-wrapper">
+          <video
+            src="https://videos.pexels.com/video-files/854394/854394-hd_1280_720_30fps.mp4"
+            autoPlay
+            loop
+            muted
+          />
+        </div>
+      </div>
         </div>
       ) : null}
+
     </div>
   );
 }
