@@ -37,6 +37,7 @@ const MapContainer = ({ user, profile }) => {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [hideMarkers, setHideMarkers] = useState(false);
+  const [darkMode, setDarkMode] = useState(false); // State for dark mode
 
   const directionsCallback = (response) => {
     if (response !== null) {
@@ -124,7 +125,171 @@ const MapContainer = ({ user, profile }) => {
     setShowModal(true);
   };
 
-
+  //change to dark model
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+  const darkStyles = [
+    {
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#242f3e',
+        },
+      ],
+    },
+    {
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#746855',
+        },
+      ],
+    },
+    {
+      elementType: 'labels.text.stroke',
+      stylers: [
+        {
+          color: '#242f3e',
+        },
+      ],
+    },
+    {
+      featureType: 'administrative.locality',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#d59563',
+        },
+      ],
+    },
+    {
+      featureType: 'poi',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#d59563',
+        },
+      ],
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#263c3f',
+        },
+      ],
+    },
+    {
+      featureType: 'poi.park',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#6b9a76',
+        },
+      ],
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#38414e',
+        },
+      ],
+    },
+    {
+      featureType: 'road',
+      elementType: 'geometry.stroke',
+      stylers: [
+        {
+          color: '#212a37',
+        },
+      ],
+    },
+    {
+      featureType: 'road',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#9ca5b3',
+        },
+      ],
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#746855',
+        },
+      ],
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry.stroke',
+      stylers: [
+        {
+          color: '#1f2835',
+        },
+      ],
+    },
+    {
+      featureType: 'road.highway',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#f3d19c',
+        },
+      ],
+    },
+    {
+      featureType: 'transit',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#2f3948',
+        },
+      ],
+    },
+    {
+      featureType: 'transit.station',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#d59563',
+        },
+      ],
+    },
+    {
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [
+        {
+          color: '#17263c',
+        },
+      ],
+    },
+    {
+      featureType: 'water',
+      elementType: 'labels.text.fill',
+      stylers: [
+        {
+          color: '#515c6d',
+        },
+      ],
+    },
+    {
+      featureType: 'water',
+      elementType: 'labels.text.stroke',
+      stylers: [
+        {
+          color: '#17263c',
+        },
+      ],
+    },
+  ];
 
   const getMarkerIcon = (type) => {
     let iconUrl = "";
@@ -142,7 +307,7 @@ const MapContainer = ({ user, profile }) => {
         iconUrl = "https://i.imgur.com/CKYi6fq.png";
         break;
       case 'tourist_attractions':
-        iconUrl = "https://i.imgur.com/pmIE1B7.png";
+        iconUrl = "https://i.imgur.com/M59y9CI.png";
         break;
       case 'home':
         iconUrl = "https://i.imgur.com/irkiLu4.png";
@@ -157,7 +322,7 @@ const MapContainer = ({ user, profile }) => {
         iconUrl = "https://i.imgur.com/9KpHlYs.png";
         break;
       case 'entertainment':
-        iconUrl = "https://i.imgur.com/M59y9CI.png";
+        iconUrl = "https://i.imgur.com/vmZJxSp.png";
         break;
       case 'secret':
         iconUrl = "https://i.imgur.com/TrfWqeT.png";
@@ -174,7 +339,7 @@ const MapContainer = ({ user, profile }) => {
     }
     return {
       url: iconUrl,
-      scaledSize: new window.google.maps.Size(50, 50) // adjust the size as needed
+      scaledSize: new window.google.maps.Size(60, 60) 
     };
   };
   const PlacesAutocomplete = ({ setMarkers, map }) => {
@@ -222,7 +387,12 @@ const MapContainer = ({ user, profile }) => {
   return (
     <LoadScript googleMapsApiKey={API_KEY} language="en" libraries={libraries}>
       <div className="places-container">
-      <PlacesAutocomplete setMarkers={setMarkers} map={map}/>
+        <PlacesAutocomplete setMarkers={setMarkers} map={map} />
+      </div>
+      <div className="dark-mode-button-container">
+        <button className="dark-mode-button" onClick={toggleDarkMode}>
+          Dark Mode
+        </button>
       </div>
       <GoogleMap
         onLoad={(map) => setMap(map)}
@@ -230,8 +400,7 @@ const MapContainer = ({ user, profile }) => {
         zoom={12}
         center={center}
         onDblClick={handleMapClick}
-        options={{ mapId: map_id, disableDoubleClickZoom: true }}
-       
+        options={{ mapId: map_id, disableDoubleClickZoom: true, styles: darkMode ? darkStyles : undefined }}
       >
         {user && markers.map((marker, index) => (
           <Marker
@@ -241,7 +410,7 @@ const MapContainer = ({ user, profile }) => {
             icon={getMarkerIcon(marker.type)} // Use the custom marker icon based on the type
           />
         ))}
-         {user && events.map(event => (
+        {user && events.map(event => (
           <Marker
             key={event._id}
             position={{ lat: event.coordinates.lat, lng: event.coordinates.lng }}
@@ -257,7 +426,6 @@ const MapContainer = ({ user, profile }) => {
           updateNewEvents={updateNewEvents}
           coordinates={center}
           onClose={() => setShowEventModal(false)}
-
         />
         <ShowModal
           ref={showModalRef}
@@ -268,7 +436,6 @@ const MapContainer = ({ user, profile }) => {
           updateNewEvents={updateNewEvents}
           onClose={() => setShowModal(false)}
         />
-
       </GoogleMap>
     </LoadScript>
   );
