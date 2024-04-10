@@ -27,7 +27,7 @@ export default function useGoogleAuth() {
             .then((res) => {
                 axios.post(API_URL + '/user', res.data)
                     .then(response => {
-                        console.log('Profile sent to backend:', response.data);
+                        console.log('Profile is sent to backend:', response.data);
                         setProfile(response.data);
                     })
                     .catch(error => {
