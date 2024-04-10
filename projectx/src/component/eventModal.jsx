@@ -120,7 +120,9 @@ const EventModal = React.forwardRef((props, ref) => {
     address: "",
     imageUrl: "",
     rate: 0,
-    description: ""
+    description: "",
+    like:'',
+    dislike:''
   });
 
   const handleChange = (event) => {
@@ -161,9 +163,9 @@ const EventModal = React.forwardRef((props, ref) => {
     return (
       <>
         <h1>{details.name}</h1>
-        <div>
-        <button onClick={handleLike} className='like-button'> Like{like} </button>
-        <button onClick={handleDislike} className='like-button'>Dislike{dislike} </button>
+        <div className='show-button'>
+        <button onClick={handleLike} className='like-button'> Like ({like}) </button>
+        <button onClick={handleDislike} className='dislike-button'>Dislike ({dislike}) </button>
         </div>
         <h2>{details.address}</h2>
         <img

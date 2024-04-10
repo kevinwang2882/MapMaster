@@ -104,11 +104,12 @@ const getLikes = async (req, res) => {
 }
 
 
-  const updateEvent = async (req, res) => {
+const updateEvent = async (req, res) => {
   try {
-    const userId = req.body.userId;
+    const userId = req.body.name.userId;
     const eventId = req.params.id;
 
+    console.log(req.body)
     if (!eventId || !userId) {
       return res.status(400).json({ message: 'User ID and Event ID are required' });
     }
@@ -128,11 +129,11 @@ const getLikes = async (req, res) => {
     }
 
     const eventData = {
-      name: req.body.name || event.name,
+      name: req.body.name.name || event.name,
       address: req.body.address || event.address,
       imageUrl: req.body.imageUrl || event.imageUrl,
       description: req.body.description || event.description,
-      rate: req.body.rate || event.rate,
+      rate: typeof req.body.rate === 'number' ? req.body.rate : event.rate,
       type: req.body.type || event.type,
     };
 
@@ -143,7 +144,6 @@ const getLikes = async (req, res) => {
     return res.status(500).json({ message: 'Internal Server Error' });
   }
 }
-
 
 const createLike = async (req, res) => {
   const { eventId, userId } = req.params;

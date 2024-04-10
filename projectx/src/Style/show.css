@@ -126,12 +126,25 @@
 
   .show-button {
     padding: 8px 16px;
-    background-color: #ccc;
+    font-size: 14px; /* Reduced font size for the submit button */
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  .like-button{
+    background-color: rgba(255, 0, 0, 0.705); /* Change to your desired color */
+    padding: 8px 25px;
+    font-size: 14px; /* Reduced font size for the submit button */
     border: none;
     color: #fff;
     cursor: pointer;
   }
   
-  .show-button.liked {
-    background-color: #f00; /* Change to your desired color */
+ .dislike-button {
+    background-color:rgba(0, 0, 255, 0.572);
+    padding: 8px 16px;
+    font-size: 14px; /* Reduced font size for the submit button */
+    border: none;
+    color: #fff;
+    cursor: pointer;
   }

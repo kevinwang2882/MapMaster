@@ -2,7 +2,7 @@ import api from './apiConfig'
 
 export const getAllEvents = async () => {
     try {
-      const response = await api.get('/event');
+      const response = await api.get('/event/');
       return response.data;
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -22,10 +22,19 @@ export const deleteEvent = async (eventId, userId) =>{
 }
 
 export const updateEvent = async (eventId, name, address, imageUrl, details ) => {
+  console.log("Updating event with ID:", eventId);
+  console.log("New data:", { name, address, imageUrl, details });
 
-  const response = await api.put(`/event/${eventId}/`, { name, address, imageUrl, details });
-  return response.data
-}
+  try {
+    const response = await api.put(`/event/${eventId}/`, { name, address, imageUrl, details });
+    console.log("Update successful. Response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating event:", error);
+    throw error;
+  }
+};
+
 export const createLike = async (eventId, userId, action) => {
   try {
     const response = await api.post(`/event/${eventId}/${userId}/like/`, { action });
