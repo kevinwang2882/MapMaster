@@ -32,7 +32,7 @@ an app is designed for creating and sharing events using google map api. User mu
 - User Signin/Login/logout: The user can register/login by gmail 
 - Map: Use google map api to generate map
 - search place: Use google place api to make an autocomplete search bar ,then use geocoding api to get lat and lng of that place,  
-                  when autocomplete place was clicked, it will automatically direct to that exact place's location.
+when autocomplete place was clicked, it will automatically direct to that exact place's location.
 - comment: All user can make comment for the event. 
 
 ## Stretch
