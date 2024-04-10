@@ -69,7 +69,7 @@ const EventFormModal = React.forwardRef((props, ref) => {
   }
 
   return (
-    <div ref={ref} className="EventModal">
+    <div ref={ref} className="EventForm">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -140,6 +140,8 @@ const EventFormModal = React.forwardRef((props, ref) => {
             <option value="entertainment">Entertainment</option>
             <option value="secret">Secret</option> 
             <option value="hospital">Hospital</option>
+            <option value="travel">travel</option>
+            <option value="awful">awful</option>
             <option value="other">Other</option>
           </select>
         </div>

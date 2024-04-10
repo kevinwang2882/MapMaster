@@ -11,7 +11,7 @@ function App() {
     <div className="container">
       {user && (
         <button
-          className={`hamburger-button ${showProfile ? 'active' : ''}`}
+          className={`profile-button ${showProfile ? 'active' : ''}`}
           onClick={() => setShowProfile(!showProfile)}
         >
           <div className="bar"></div>

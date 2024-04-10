@@ -6,7 +6,7 @@ import '../Style/show.css';
 import { useCommentContext } from './comment';
 
 
-const Show = React.forwardRef((props, ref) => {
+const EventModal = React.forwardRef((props, ref) => {
   const { content, setContent } = useCommentContext();
   const [newComment, setNewComment] = useState('');
   const [comments, setComments] = useState([]);
@@ -214,7 +214,7 @@ const Show = React.forwardRef((props, ref) => {
   }
 
   return (
-    <div className="ShowModal" ref={ref}>
+    <div className="container" ref={ref}>
       {details ? loaded() : loading()}
       {props.user.user._id === props.details.userId && (
         <>
@@ -273,5 +273,5 @@ const Show = React.forwardRef((props, ref) => {
 
 
 
-Show.displayName = 'Show'; 
-export default Show;
+EventModal.displayName = 'EventModal'; 
+export default EventModal;

@@ -139,7 +139,7 @@ const MapContainer = ({ user, profile }) => {
         iconUrl = "https://cdn-icons-png.flaticon.com/512/8/8178.png";
         break;
       case 'bar':
-        iconUrl = "https://cdn-icons-png.flaticon.com/512/8/8136.png";
+        iconUrl = "https://i.imgur.com/CKYi6fq.png";
         break;
       case 'park':
         iconUrl = "https://cdn-icons-png.flaticon.com/512/9/9770.png";
@@ -148,6 +148,12 @@ const MapContainer = ({ user, profile }) => {
         iconUrl = "https://static.thenounproject.com/png/279259-200.png";
         break;
       case 'grocery_market':
+        iconUrl = "";
+        break;
+      case 'travel':
+        iconUrl = "";
+        break;
+      case 'awful':
         iconUrl = "";
         break;
       case 'cafe':

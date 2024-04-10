@@ -3,7 +3,6 @@ import api from './apiConfig'
 export const getAllEvents = async () => {
     try {
       const response = await api.get('/event');
-      console.log('receiving data:', response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -23,7 +22,7 @@ export const deleteEvent = async (eventId, userId) =>{
 }
 
 export const updateEvent = async (eventId, name, address, imageUrl, details ) => {
-  console.log(eventId)
+
   const response = await api.put(`/event/${eventId}/`, { name, address, imageUrl, details });
   return response.data
 }
