@@ -214,7 +214,7 @@ const EventModal = React.forwardRef((props, ref) => {
   }
 
   return (
-    <div className="container" ref={ref}>
+    <div className="event-container" ref={ref}>
       {details ? loaded() : loading()}
       {props.user.user._id === props.details.userId && (
         <>

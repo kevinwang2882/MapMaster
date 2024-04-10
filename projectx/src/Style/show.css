@@ -1,4 +1,4 @@
-.container{
+.event-container{
     display: flex;
     height: 80vh;
     width: 25%;
@@ -13,7 +13,7 @@
     border-radius: 25px;
     box-shadow: 12px 12px 20px 1px black;
   }
-.container form {
+.event-container form {
     display: flex;
     flex-direction: column;
   }
@@ -26,7 +26,7 @@
     width: 92%; 
   }
   /* Style for input fields */
-.container input[type="text"] {
+.event-container input[type="text"] {
     margin-bottom: 10px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -35,7 +35,7 @@
   }
   
   /* Style for the submit button */
-.container input[type="submit"] 
+.event-container input[type="submit"] 
   {
     background-color: red; /* Change this to your preferred button color */
     color: #fff;
@@ -62,7 +62,7 @@
     cursor: pointer;
   }
   
-  .container {
+  .event-container {
     background-color: #f0f0f0; 
     padding: 20px; 
     border-radius: 5px; 

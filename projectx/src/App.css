@@ -36,8 +36,8 @@ body{
 }
 
 
-/* Style for the hamburger button */
-.hamburger-button {
+/* Style for the profile button */
+.profile-button {
   position: fixed;
   top: 6vh;
   left: 3vh;
@@ -80,7 +80,7 @@ body{
 }
 
 /* Show the profile section when the hamburger button is active */
-.hamburger-button.active + .profile-section {
+.profile-button.active + .profile-section {
   display: block;
 }
 

@@ -130,46 +130,43 @@ const MapContainer = ({ user, profile }) => {
     let iconUrl = "";
     switch (type) {
       case 'hotel':
-        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/289/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_147-512.png";
+        iconUrl = "https://i.imgur.com/kJz8kLw.png";
         break;
       case 'restaurant':
-        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/290/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_149-512.png";
+        iconUrl = "https://i.imgur.com/LIEKYta.png";
         break;
       case 'school':
-        iconUrl = "https://cdn-icons-png.flaticon.com/512/8/8178.png";
+        iconUrl = "https://i.imgur.com/34xnIxj.png";
         break;
       case 'bar':
         iconUrl = "https://i.imgur.com/CKYi6fq.png";
         break;
-      case 'park':
-        iconUrl = "https://cdn-icons-png.flaticon.com/512/9/9770.png";
+      case 'tourist_attractions':
+        iconUrl = "https://i.imgur.com/pmIE1B7.png";
         break;
       case 'home':
-        iconUrl = "https://static.thenounproject.com/png/279259-200.png";
+        iconUrl = "https://i.imgur.com/irkiLu4.png";
         break;
       case 'grocery_market':
-        iconUrl = "";
-        break;
-      case 'travel':
-        iconUrl = "";
+        iconUrl = "https://i.imgur.com/DjbGFpH.png";
         break;
       case 'awful':
-        iconUrl = "";
+        iconUrl = "https://i.imgur.com/T2FDEG2.png";
         break;
       case 'cafe':
-        iconUrl = "https://static.thenounproject.com/png/331590-200.png";
+        iconUrl = "https://i.imgur.com/9KpHlYs.png";
         break;
       case 'entertainment':
-        iconUrl = "";
+        iconUrl = "https://i.imgur.com/M59y9CI.png";
         break;
       case 'secret':
-        iconUrl = "https://cdn0.iconfinder.com/data/icons/travel-vacation/289/travel-transport-hotel-vacation-holidays-tourist-tourism-travelling-traveling_178-512.png";
+        iconUrl = "https://i.imgur.com/TrfWqeT.png";
         break;
       case 'hospital':
-        iconUrl = "https://i.imgur.com/pngr1W1.png";
+        iconUrl = "https://i.imgur.com/HqIjcgW.png";
         break;
-      case 'Mall':
-        iconUrl = "https://cdn-icons-png.flaticon.com/512/3448/3448673.png";
+      case 'mall':
+        iconUrl = "https://i.imgur.com/oQvHjv0.png";
         break;
       default:
         iconUrl = "https://www.svgrepo.com/show/1276/map-pin.svg";
