@@ -36,6 +36,11 @@ an app is designed for creating and sharing events using google map api. User mu
 **comment**:All user can make comment for the event. 
 
 ## Stretch
+-add game model
+-add plan model
+-the user can save their favorite events,and able to find it on user profile
+-
+
 
 ## ERD
 ![ERD](projectx/public/erd.png)
