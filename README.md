@@ -13,7 +13,7 @@ Creating event form
 an app is designed for creating and sharing events using google map api. User must login  with gmail first.Then Users can create events, set up event details,type of event ,rating and locations, and notify other users.All user can make commit on the events.
 
 
-##Technologies Used
+## Technologies Used
 -REACT
 -Google Oauth
 -Google Places API
@@ -39,7 +39,7 @@ an app is designed for creating and sharing events using google map api. User mu
 -add game model
 -add plan model
 -the user can save their favorite events,and able to find it on user profile
--
+
 
 
 ## ERD
