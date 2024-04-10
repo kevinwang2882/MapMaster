@@ -57,8 +57,8 @@ body{
 /* Style for the profile button */
 .profile-button {
   position: fixed;
-  top: 6vh;
-  left: 3vh;
+  top: 2.5vh;
+  left: 23vh;
   z-index:3;
   background: none;
   border: none;
