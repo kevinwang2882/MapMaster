@@ -30,47 +30,40 @@ const EventFormModal = React.forwardRef((props, ref) => {
     }));
   };
 
-  const handleSubmit = async (event) => {
-  event.preventDefault();
-  if (newForm.rate === 0) {
-    // Require rating
-    alert("Please select a rating");
-    return;
-  }
-
-  const updatedForm = {
-    name: newForm.name,
-    type: newForm.type,
-    address: newForm.address,
-    imageUrl: newForm.imageUrl,
-    description: newForm.description,
-    rate: newForm.rate,
-    coordinates: props.coordinates,
-    userId: props.user.user._id
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (newForm.rate === 0) {
+  //require rating 
+      alert("Please select a rating");
+      return; 
+    }
+    //update form
+    const updatedForm = {
+      name: newForm.name,
+      type: newForm.type,
+      address: newForm.address,
+      imageUrl: newForm.imageUrl,
+      description: newForm.description,
+      rate: newForm.rate,
+      coordinates: props.coordinates,
+      userId: props.user.user._id
+    };
+    createEvent(updatedForm);
+    setTimeout(() => {
+      props.updateNewEvents(true);
+    }, 1500);
+    setNewForm({
+      name: "",
+      type: "hotel",
+      address: "",
+      imageUrl: "",
+      description: "",
+      rate: 1,
+      coordinates: null,
+      userId: null
+    });
+    props.setShow(false);
   };
-
-  try {
-    const response = await updateEvent(props.details._id, updatedForm);
-    console.log("Event updated successfully:", response);
-    props.updateNewEvents(true);
-  } catch (error) {
-    console.error("Error updating event:", error);
-    // Handle the error, e.g., display an error message to the user
-  }
-
-  setNewForm({
-    name: "",
-    type: "hotel",
-    address: "",
-    imageUrl: "",
-    description: "",
-    rate: 1,
-    coordinates: null,
-    userId: null
-  });
-
-  props.setShow(false);
-};
 
   if (!props.show) {
     return null; // Return null when show is false
