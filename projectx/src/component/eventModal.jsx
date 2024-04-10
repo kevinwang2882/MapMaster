@@ -15,52 +15,57 @@ const Show = React.forwardRef((props, ref) => {
   const [likeactive, setlikeactive] = useState(false);
   const [dislikeactive, setdislikeactive] = useState(false);
 
-  const length = props.details && props.details.like ? props.details.like.length : 0;
-  const dislength = props.details && props.details.dislike ? props.details.dislike.length : 0;
-
-  console.log(length)
   const handleLike = async () => {
     try {
       // Pass true to indicate a like action
-      await createLike(props.details._id, props.user.user._id, 'like');
+      const response = await createLike(props.details._id, props.user.user._id, 'like');
   
-      if (likeactive) {
-        setlikeactive(false);
-        setlike(like - 1);
-      } else {
-        setlikeactive(true);
-        setlike(like + 1);
-        if (dislikeactive) {
-          setdislikeactive(false);
-          setdislike(dislike - 1);
-        }
-      }
-    } catch (error) {
-      console.error('Error liking event:', error);
-    }
-  };
-
-  const handleDislike = async () => {
-    try {
-      // Pass true to indicate a like action
-      await createLike(props.details._id, props.user.user._id, 'dislike');
-  
-      if (dislikeactive) {
-        setdislikeactive(false);
-        setdislike(dislike - 1);
-      } else {
-        setdislikeactive(true);
-        setdislike(dislike + 1);
+      if (response.message === 'Action saved successfully') {
         if (likeactive) {
           setlikeactive(false);
           setlike(like - 1);
+        } else {
+          setlikeactive(true);
+          setlike(like + 1);
+          if (dislikeactive) {
+            setdislikeactive(false);
+            setdislike(dislike - 1);
+          }
         }
+      } else {
+        // Handle error, such as displaying a message to the user
+        console.error('Error liking event:', response.message);
       }
     } catch (error) {
       console.error('Error liking event:', error);
     }
   };
-
+  
+  const handleDislike = async () => {
+    try {
+      // Pass true to indicate a like action
+      const response = await createLike(props.details._id, props.user.user._id, 'dislike');
+  
+      if (response.message === 'Action saved successfully') {
+        if (dislikeactive) {
+          setdislikeactive(false);
+          setdislike(dislike - 1);
+        } else {
+          setdislikeactive(true);
+          setdislike(dislike + 1);
+          if (likeactive) {
+            setlikeactive(false);
+            setlike(like - 1);
+          }
+        }
+      } else {
+        // Handle error, such as displaying a message to the user
+        console.error('Error disliking event:', response.message);
+      }
+    } catch (error) {
+      console.error('Error disliking event:', error);
+    }
+  };
 
 
   const handleAddComment = async (event) => {
@@ -111,7 +116,7 @@ const Show = React.forwardRef((props, ref) => {
   const details = props.details;
   
   
-  console.log('props.details:', props.details);
+
   const [editForm, setEditForm] = useState({
     name: "",
     address: "",

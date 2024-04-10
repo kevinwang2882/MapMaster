@@ -13,7 +13,7 @@ const { User, Event,Comment } = require('../models');
 
 
   const createEvent = async (req, res) => {
-  console.log(req.body);
+
   try {
     const { name, address, coordinates, imageUrl, description,rate,type, userId } = req.body;
 
@@ -38,7 +38,6 @@ const { User, Event,Comment } = require('../models');
     });
 
     const savedEvent = await newEvent.save();
-    console.log(savedEvent._id)
     
     user.events.push(savedEvent._id);
    
@@ -52,7 +51,6 @@ const { User, Event,Comment } = require('../models');
 }
 const getLikes = async (req, res) => {
   const { eventId } = req.params;
-    console.log(eventId)
   try {
     const event = await Event.findById(eventId);
 
@@ -107,7 +105,6 @@ const getLikes = async (req, res) => {
 
 
   const updateEvent = async (req, res) => {
-  console.log('REQBODYYYYYYY', req.body);
   try {
     const userId = req.body.userId;
     const eventId = req.params.id;

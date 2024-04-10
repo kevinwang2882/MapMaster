@@ -1,7 +1,7 @@
 const { Comment, User, Event } = require('../models');
 
 
-// Create a new comment
+
 const getComment = async (req, res) => {
   try {
     const comments = await Comment.find();
@@ -13,9 +13,9 @@ const getComment = async (req, res) => {
 }
 
 
-
+// Create a new comment
 const createComment = async (req, res) => {
-  console.log("This is the body: ", req.body);
+  
   try {
     const { userId, content, eventId ,userName } = req.body;
   
@@ -84,8 +84,6 @@ const deleteComment = async (req, res) => {
 
 // Update a comment
 const updateComment = async (req, res) => {
-  console.log("This is the body: ", req.body);
-  console.log("This is the params: ", req.params);
   try {
     const userId = req.params.id;
     const { commentId, text } = req.body;
