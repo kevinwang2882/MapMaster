@@ -73,24 +73,23 @@ const EventModal = React.forwardRef((props, ref) => {
     if (newComment.trim() === '') {
       return;
     }
-  
+
     try {
       // Create new comment
-      await createComment(props.details._id, props.user.user._id, newComment, props.user.user.userName);
-  
-      // Update comments state by adding the new comment
+      const commentId = await createComment(props.details._id, props.user.user._id, newComment, props.user.user.userName);
+      
+      // Update local comments state by adding the new comment
       setComments((prevComments) => [
         ...prevComments,
-        { userName: props.user.user.userName, content: [newComment] },
+        { id: commentId, userName: props.user.user.userName, content: [newComment] },
       ]);
-  
+      
       setNewComment('');
     } catch (error) {
       console.error('Error adding comment:', error);
-   
     }
   };
-  
+
   useEffect(() => {
     const fetchComments = async () => {
       if (props.details && Array.isArray(props.details.comments) && props.details.comments.length > 0) {
@@ -107,7 +106,7 @@ const EventModal = React.forwardRef((props, ref) => {
         setComments(commentsData.flat());
       }
     };
-  
+
     setComments([]); // Clear comments before fetching new comments for the new event
     fetchComments();
   }, [props.details]);
@@ -158,6 +157,7 @@ const EventModal = React.forwardRef((props, ref) => {
       }
       return stars;
     };
+
 
     return (
       <>
