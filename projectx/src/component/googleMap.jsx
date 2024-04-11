@@ -324,6 +324,9 @@ const MapContainer = ({ user, profile }) => {
       case 'entertainment':
         iconUrl = "https://i.imgur.com/vmZJxSp.png";
         break;
+      case 'social':
+        iconUrl = "https://i.imgur.com/XJz3ztQ.png";
+        break;
       case 'secret':
         iconUrl = "https://i.imgur.com/TrfWqeT.png";
         break;

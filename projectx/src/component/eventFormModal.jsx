@@ -141,7 +141,8 @@ const EventFormModal = React.forwardRef((props, ref) => {
             <option value="entertainment">Entertainment</option>
             <option value="secret">Secret</option> 
             <option value="hospital">Hospital</option>
-            <option value="awful">awful</option>
+            <option value="awful">Awful</option>
+            <option value="social">Social</option>
             <option value="other">Other</option>
           </select>
         </div>
