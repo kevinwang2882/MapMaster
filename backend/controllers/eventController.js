@@ -130,11 +130,11 @@ const updateEvent = async (req, res) => {
 
     const eventData = {
       name: req.body.name.name || event.name,
-      address: req.body.address || event.address,
+      address: req.body.name.address || event.address,
       imageUrl: req.body.imageUrl || event.imageUrl,
-      description: req.body.description || event.description,
-      rate: typeof req.body.rate === 'number' ? req.body.rate : event.rate,
-      type: req.body.type || event.type,
+      description: req.body.name.description || event.description,
+      rate: typeof req.body.name.rate === 'number' ? req.body.rate : event.rate,
+      type: req.body.name.type || event.type,
     };
 
     const updatedEvent = await Event.findByIdAndUpdate(eventId, eventData, { new: true });

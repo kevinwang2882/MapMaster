@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { deleteEvent, updateEvent,createLike } from '../api/event';
 import {createComment,getComment} from '../api/comment'
 import { FaStar } from "react-icons/fa";
-import '../Style/show.css';
+import '../Style/eventModel.css';
 import { useCommentContext } from './comment';
 
 

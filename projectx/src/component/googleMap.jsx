@@ -290,7 +290,7 @@ const MapContainer = ({ user, profile }) => {
       ],
     },
   ];
-
+  //custom icon
   const getMarkerIcon = (type) => {
     let iconUrl = "";
     switch (type) {
