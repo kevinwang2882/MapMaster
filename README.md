@@ -23,15 +23,15 @@ an app designed for creating and sharing events using Google Maps API. The user 
 - Express
 - JSON
 - Mongoose
-- MongoDb
+- MongoDB
 - CSS
 - JavaScript
 
 ## MVP Goals
 - CRUD: Have full CRUD operations (POST, GET, PUT, DELETE) on the event model.
-- User Sign in/log in/logout: The user can register/log in by Gmail 
+- User Sign in/login/log out: The user can register/log in by Gmail 
 - Map: Use Google Map API to generate a map
-- search place: Use google place API to make an autocomplete search bar, then use geocoding API to get the lat and lng of that place,  
+- search place: Use Google place API to make an autocomplete search bar, then use geocoding API to get the lat and lng of that place,  
 when the autocomplete place is clicked, it will automatically direct to that exact place's location.
 - comment: All users can comment on the event. 
 
